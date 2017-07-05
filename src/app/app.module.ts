@@ -31,7 +31,7 @@ const routes: Routes = [
     children:[
       {path: '', component: BookListComponent},
       {path: 'add', component: AddBookComponent, canActivate: [GuardService]},
-      {path: 'edit', component: EditBookComponent, canActivate: [GuardService]},
+      {path: 'edit/:id', component: EditBookComponent, canActivate: [GuardService]},
       {path: ':book', component: BookComponent},
   ]},
 ]

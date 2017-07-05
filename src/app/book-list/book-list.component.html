@@ -14,9 +14,9 @@
     <tbody>
       <tr>
         <app-book-list-item [bookItem]="book" *ngFor="let book of books" (deleteBook)="deleteBook($event)"
-                            (bookId)="onBookId($event)"></app-book-list-item>
+                            (fullBook)="onFullBook($event)"></app-book-list-item>
       </tr>
     </tbody>
   </table>
-  <app-book [id]="bookId"></app-book>
+  <app-book [book]="fullBook"></app-book>
 </div>

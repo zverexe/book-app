@@ -1,3 +1,48 @@
-<p>
-  edit-book works!
-</p>
+<div class="col-sm-12">
+  <div class="form-wrapper">
+    <form class="add-book-form" #f="ngForm">
+      <div class="form-group"
+           [ngClass]="{
+         'has-error': t.invalid && t.touched,
+         'has-success': t.valid && t.touched}">
+        <label for="">Title</label>
+        <input type="text" class="form-control" [(ngModel)] = "title"
+               name="title" placeholder="Title" required #t="ngModel" [value]=book.title>
+      </div>
+      <div class="form-group"
+           [ngClass]="{
+         'has-error': a.invalid && a.touched,
+         'has-success': a.valid && a.touched}">
+        <label for="">Author</label>
+        <input type="text" class="form-control" [(ngModel)] = "author"
+               name="author" placeholder="author" required #a="ngModel" [value]=book.author>
+      </div>
+      <div class="form-group description"
+           [ngClass]="{
+         'has-error': d.invalid && d.touched,
+         'has-success': d.valid && d.touched}">
+        <label for="">Description</label>
+        <textarea class="form-control" type="textarea" placeholder="Message" maxlength="140" rows="7" [(ngModel)] = "description"
+                  name="description" placeholder="Description" required #d="ngModel" [value]=book.description>
+        </textarea>
+      </div>
+      <div class="form-group checkbox">
+        <div>
+          <p>Status</p>
+        </div>
+        <input type="checkbox" name="status" id="checkbox1" class="ios-toggle" [checked]=book.status  [(ngModel)] = "status">
+        <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+      </div>
+
+      <div class="form-group"
+           [ngClass]="{
+         'has-error': r.invalid && r.touched,
+         'has-success': r.valid && r.touched}">
+        <label for="">Rating</label>
+        <input type="text" class="form-control" [(ngModel)] = "rating"
+               name="author" placeholder="author" required #r="ngModel" [value]=book.rating>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>

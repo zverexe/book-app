@@ -144,7 +144,6 @@ exports.addBook = function (req, res) {
         description,
         status,
         rating
-
     });
 
     newBook.save((err, book)=>{
@@ -157,11 +156,6 @@ exports.addBook = function (req, res) {
 
     //res.json({success: true});
 };
-
-
-
-
-
 
 // Delete book
 exports.deleteBook = function (req, res) {
@@ -176,7 +170,43 @@ exports.deleteBook = function (req, res) {
 
 // Edit book
 exports.editBook = function (req, res) {
-    res.json({success: true});
+    const book = req.body;
+    const updBook = {};
+
+    if(book.title){
+        updBook.title = book.title;
+    }
+
+    if(book.author){
+        updBook.author = book.author;
+    }
+
+    if(book.description){
+        updBook.description = book.description;
+    }
+
+    if(book.status){
+        updBook.status = book.status;
+    }
+
+    if(book.rating){
+        updBook.rating = book.rating;
+    }
+
+    if(!updBook){
+        res.status(400);
+        res.json({
+            "error": "Bad data"
+        });
+    }else{
+        Book.update({_id: req.params.id},updBook,{}, (err, book)=>{
+            if(err){
+                res.send(err);
+            }else{
+                res.json({success: true, book});
+            }
+        });
+    }
 };
 
 // Book page

@@ -12,14 +12,14 @@ export class BookListItemComponent {
   @Input() bookItem;
 
   @Output() deleteBook = new EventEmitter();
-  @Output() bookId = new EventEmitter();
+  @Output() fullBook = new EventEmitter();
   constructor(private bookService: BookService, private authService: AuthService) {}
 
   onDelete(){
     this.deleteBook.emit({book: this.bookItem});
   }
 
-  id(){
-    this.bookId.emit({id: this.bookItem._id});
+  getFullBook(){
+    this.fullBook.emit({fullBook: this.bookItem});
   }
 }

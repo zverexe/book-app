@@ -10,7 +10,7 @@ import { AuthService } from "../services/auth.service";
 export class BookListComponent implements OnInit {
 
   books: any;
-  bookId: any;
+  fullBook: any;
 
   constructor(private bookService: BookService, private authService: AuthService) { }
 
@@ -22,8 +22,8 @@ export class BookListComponent implements OnInit {
     });
   }
 
-  onBookId($event){
-    this.bookId = $event.id;
+  onFullBook($event){
+    this.fullBook = $event.fullBook;
   }
 
   deleteBook($event){

@@ -36,6 +36,7 @@ module.exports = function (app) {
     // Book Routes
     //= ========================
 
+    // Set book routes as subgroup/middleware to apiRoutes
     apiRoutes.use('/book', bookRoutes);
 
     // Book list
@@ -45,17 +46,13 @@ module.exports = function (app) {
     bookRoutes.post('/add', requireAuth, authenticate.addBook);
 
     // Edit book
-    bookRoutes.put('/edit', authenticate.login);
+    bookRoutes.put('/:id', requireAuth, authenticate.editBook);
 
     // Delete book
     bookRoutes.delete('/:id', requireAuth, authenticate.deleteBook);
 
     // Book page
     bookRoutes.get('/:id', authenticate.viewBook);
-
-
-
-
 
 
     app.use('/api', apiRoutes);
