@@ -20,7 +20,6 @@ const port = 3000;
 
 //app.use(router);
 
-
 //Database connection
 mongoose.connect(database.dbname);
 mongoose.connection.on('connected', () => {
