@@ -1,0 +1,11 @@
+ <td></td>
+ <td>{{ bookItem.author }}</td>
+ <td><a (click)="id($event)">{{ bookItem.title }}</a></td>
+ <td>{{ bookItem.rating }}</td>
+ <td></td>
+ <td>
+   <div class="book-actions">
+     <button *ngIf="authService.loggedIn()"  (click)="onDelete($event)" type="button" class="btn btn-danger">Remove</button>
+     <button *ngIf="authService.loggedIn()"  type="button" class="btn btn-primary"><a href="">Edit</a></button>
+   </div>
+ </td>

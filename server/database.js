@@ -1,0 +1,5 @@
+module.exports={
+    //dbname: 'mongodb://localhost:27017/book'
+    dbname: 'mongodb://deadly8:35f961964@ds143532.mlab.com:43532/book',
+    secret: 'mysecret'
+}

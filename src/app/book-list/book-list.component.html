@@ -1,0 +1,22 @@
+<div class="col-sm-12">
+  <h4 class="text-left">Books</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Book rating</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <app-book-list-item [bookItem]="book" *ngFor="let book of books" (deleteBook)="deleteBook($event)"
+                            (bookId)="onBookId($event)"></app-book-list-item>
+      </tr>
+    </tbody>
+  </table>
+  <app-book [id]="bookId"></app-book>
+</div>
