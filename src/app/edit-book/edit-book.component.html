@@ -1,6 +1,6 @@
 <div class="col-sm-12">
   <div class="form-wrapper">
-    <form class="add-book-form" #f="ngForm">
+    <form class="add-book-form" (ngSubmit)="edit(f);" #f="ngForm">
       <div class="form-group"
            [ngClass]="{
          'has-error': t.invalid && t.touched,

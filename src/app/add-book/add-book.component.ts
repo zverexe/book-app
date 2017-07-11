@@ -17,7 +17,7 @@ export class AddBookComponent implements OnInit {
   status: boolean;
   rating: number;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit() {
 
@@ -31,11 +31,11 @@ export class AddBookComponent implements OnInit {
     status: this.status,
     rating: this.rating
   }
-    //
+
     this.bookService.createBook(book).subscribe(data=>{
       if(data.success){
         //this.authService.userData(data.token, data.user);
-        //this.router.navigate(['/']);
+        this.router.navigate(['/book']);
         console.log('book created');
       }else{
         console.log('error book creation');

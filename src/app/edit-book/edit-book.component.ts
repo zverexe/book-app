@@ -13,6 +13,11 @@ export class EditBookComponent implements OnInit {
 
   book: any;
 
+  title: string;
+  author: string;
+  description : string;
+  status: boolean;
+  rating: number;
 
   ngOnInit() {
     let id = this.router.snapshot.params['id'];
@@ -20,7 +25,30 @@ export class EditBookComponent implements OnInit {
         this.book= res.book;
       console.log(this.book);
     });
-
   }
+
+  edit(){
+    let id = this.router.snapshot.params['id'];
+    const book={
+      _id: id,
+      title: this.title,
+      author: this.author,
+      description : this.description,
+      status: this.status,
+      rating: this.rating,
+    }
+    //
+    this.bookService.editBook(book).subscribe(data=>{
+      if(data.success){
+        //this.authService.userData(data.token, data.user);
+        //this.router.navigate(['/']);
+        console.log('book edited');
+      }else{
+        console.log('error book edit');
+        //this.router.navigate(['/register']);
+      }
+    });
+  }
+
 
 }

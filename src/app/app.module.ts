@@ -58,7 +58,6 @@ const routes: Routes = [
     AuthService,
     GuardService,
     BookService
-
   ],
   bootstrap: [AppComponent]
 })

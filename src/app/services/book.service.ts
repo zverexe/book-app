@@ -37,8 +37,14 @@ export class BookService {
         .map((res)=>res.json());
   }
 
-  editBook(){
+  editBook(book){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
 
+    return this.http.put(`${config.API_HOST}/book/`+book._id, book, {headers: headers})
+        .map((res)=>res.json());
   }
 
   getAllBooks(){
