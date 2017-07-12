@@ -1,53 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router , ActivatedRoute } from '@angular/router';
 import { BookService } from '../services/book.service';
+
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
-  styleUrls: ['./edit-book.component.css']
+  styleUrls: ['edit-book.component.scss']
 })
 export class EditBookComponent implements OnInit {
 
-  constructor(private router: ActivatedRoute, private bookService: BookService) { }
-
+  constructor(private activeRoute: ActivatedRoute, private router: Router,
+              private bookService: BookService) { }
   book: any;
-
-  title: string;
-  author: string;
-  description : string;
-  status: boolean;
-  rating: number;
+  oldBook: any;
 
   ngOnInit() {
-    let id = this.router.snapshot.params['id'];
+    let id = this.activeRoute.snapshot.params['id'];
     this.bookService.getBook(id).subscribe(res=>{
         this.book= res.book;
-      console.log(this.book);
+        this.oldBook = Object.assign({}, this.book);
     });
   }
 
-  edit(){
-    let id = this.router.snapshot.params['id'];
-    const book={
+  edit(book){
+    let id = this.activeRoute.snapshot.params['id'];
+    const updbook={
       _id: id,
-      title: this.title,
-      author: this.author,
-      description : this.description,
-      status: this.status,
-      rating: this.rating,
-    }
+      title: book.title,
+      author: book.author,
+      description : book.description,
+      status: book.status,
+      rating: book.rating
+    };
+    console.log(book);
     //
-    this.bookService.editBook(book).subscribe(data=>{
+    this.bookService.editBook(updbook).subscribe(data=>{
       if(data.success){
         //this.authService.userData(data.token, data.user);
-        //this.router.navigate(['/']);
         console.log('book edited');
+        this.router.navigate(['/']);
       }else{
         console.log('error book edit');
         //this.router.navigate(['/register']);
       }
     });
+  }
+
+  closeEdit(book) {
+    Object.assign(this.book, this.oldBook);
+    this.router.navigate(['/']);
   }
 
 

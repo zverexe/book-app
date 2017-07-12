@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 import { config } from '../localConfig';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
+
+
 
 @Injectable()
 export class BookService {
@@ -11,11 +19,8 @@ export class BookService {
   book: any;
   user: any;
 
-
-
   loadToken(){
     const token = localStorage.getItem('id_token');
-
     this.authToken = token;
   }
 
@@ -39,10 +44,10 @@ export class BookService {
 
   editBook(book){
     let headers = new Headers();
+    console.log(book);
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-
     return this.http.put(`${config.API_HOST}/book/`+book._id, book, {headers: headers})
         .map((res)=>res.json());
   }
@@ -56,6 +61,11 @@ export class BookService {
     return this.http.get(`${config.API_HOST}/book/`+id)
         .map((res)=>res.json());
   }
+
+  searchBook(){
+
+  }
+
 
 
 

@@ -201,9 +201,9 @@ exports.editBook = function (req, res) {
     }else{
         Book.update({_id: req.params.id},updBook,{}, (err, book)=>{
             if(err){
-                res.send(err);
+                res.send("not edited data");
             }else{
-                res.json({success: true, book});
+                res.json({success: true, updBook});
             }
         });
     }

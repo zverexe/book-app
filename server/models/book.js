@@ -20,8 +20,7 @@ const BookSchema = new Schema({
         required: true
     },
     status:{
-        type: Boolean,
-        default: false
+        type: Boolean
     },
     rating:{
         type: Number,

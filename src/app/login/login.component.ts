@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 
@@ -7,16 +7,13 @@ import { Router } from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
   email: string;
   password: string;
 
 
   constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit() {
-  }
 
   onLogin(){
     const user ={

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
+import {Observable} from 'rxjs/Observable';
 
 import { config } from '../localConfig';
 
@@ -10,24 +11,24 @@ import 'rxjs/add/operator/map';
 export class AuthService {
   authToken: any;
   user: any;
+  username: any;
 
   constructor(private http: Http) { }
 
   registerUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-
     return this.http.post(`${config.API_HOST}/auth/register`, user, {headers: headers})
         .map((res)=>res.json());
   }
 
   loginUser(user){
+    console.log(user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
 
     return this.http.post(`${config.API_HOST}/auth/login`, user, {headers: headers})
         .map((res)=>res.json());
-
   }
 
   userData(token, user){
@@ -44,16 +45,6 @@ export class AuthService {
     localStorage.clear();
   }
 
-  /*addBook(){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Autherization', this.authToken);
-    headers.append('Content-Type','application/json');
-
-    return this.http.post(`${config.API_HOST}/book/add`, {headers: headers})
-        .map((res)=>res.json());
-  }*/
-
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;
@@ -62,4 +53,12 @@ export class AuthService {
   loggedIn(){
     return tokenNotExpired("id_token");
   }
+
+  getUser(){
+    this.username = JSON.parse(localStorage.getItem("user"));
+    console.log(this.username);
+    return this.username;
+  }
+
+
 }

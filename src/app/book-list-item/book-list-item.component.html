@@ -1,11 +1,14 @@
- <td></td>
- <td>{{ bookItem.author }}</td>
- <td><a (click)="getFullBook($event)">{{ bookItem.title }}</a></td>
- <td>{{ bookItem.rating }}</td>
- <td></td>
- <td>
-   <div class="book-actions">
-     <button *ngIf="authService.loggedIn()"  (click)="onDelete($event)" type="button" class="btn btn-danger">Remove</button>
-     <button *ngIf="authService.loggedIn()"  [routerLink]="['book/edit', bookItem._id]" type="button" class="btn btn-primary"><a href="">Edit</a></button>
-   </div>
- </td>
+
+<div></div>
+<div class="text-center">{{ bookItem.author }}</div>
+<div><a (click)="getFullBook($event)">{{ bookItem.title }}</a></div>
+<div class="text-center book-rating">{{ bookItem.rating }}</div>
+<div></div>
+<div>
+    <div class="book-actions">
+        <button *ngIf="authService.loggedIn()"  (click)="onDelete($event)" type="button" class="btn btn-danger">Remove</button>
+        <button *ngIf="authService.loggedIn()"  [routerLink]="['book/edit', bookItem._id]" type="button" class="btn btn-primary"><a href="">Edit</a></button>
+    </div>
+</div>
+
+

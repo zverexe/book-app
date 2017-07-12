@@ -1,22 +1,129 @@
-<div class="col-sm-12">
-  <h4 class="text-left">Books</h4>
+<!--<div class="col-sm-12">
+  <div class="form-group">
+    <label>Filter </label>
+    <input  type="text"  id="inputName" (keyup)="filterByName(books)" [(ngModel)]="inputName"/>
+  </div>
+
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>#</th>
-        <th>Author</th>
-        <th>Title</th>
-        <th>Book rating</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
+    <tr>
+      <th>
+        #
+      </th>
+      <th class="pointer" (click)="sort('title')">
+        Title
+        <i class="fa"
+           [ngClass]="{'fa-sort': column != 'title',
+                        'fa-sort-asc': (column == 'title' && !isDesc),
+                        'fa-sort-desc': (column == 'title' && isDesc) }"
+           aria-hidden="true"> </i>
+      </th>
+      <th >
+        Author
+      </th>
+      <th>
+        Book Rating
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
     </thead>
     <tbody>
-      <tr>
-        <app-book-list-item [bookItem]="book" *ngFor="let book of books" (deleteBook)="deleteBook($event)"
-                            (fullBook)="onFullBook($event)"></app-book-list-item>
-      </tr>
+    <tr *ngFor="let book of books | orderBy: {property: column, direction: direction} ">
+      <td></td>
+      <td><a (click)="getFullBook(book)">{{book.title}}</a></td>
+      <td>{{book.author}}</td>
+      <td>{{book.rating}}</td>
+      <td>
+        <input type="checkbox" name="status" id="checkbox1" class="ios-toggle" [checked]=book.status [(ngModel)] = "status"/>
+        <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+      </td>
+      <td>
+        <div class="book-actions">
+          <button *ngIf="authService.loggedIn()" (click)="deleteBook(book)" type="button" class="btn btn-danger">Remove</button>
+          <button *ngIf="authService.loggedIn()" [routerLink]="['book/edit', book._id]" type="button" class="btn btn-primary">Edit</button>
+        </div>
+      </td>
+    </tr>
     </tbody>
   </table>
+  <div class="btn-toolbar" role="toolbar" style="margin: 0;">
+    <div class="btn-group pull-right">
+      <ul class="pagination" >
+        <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
+        <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
+          <a href="#" (click)="setPage(page)" href="#" >{{page}}</a>
+        </li>
+        <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
+      </ul>
+    </div>
+  </div>
   <app-book [book]="fullBook"></app-book>
-</div>
+</div>-->
+
+<div class="col-sm-12">
+    <div class="search-field">
+      <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
+    </div>
+    <div class="panel panel-default">
+      <table class="table table-striped" [mfData]="books | dataFilter : filterQuery" #mf="mfDataTable"
+             [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>
+            <mfDefaultSorter by="author">Author</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="title">Title</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="status">Status</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="rating">Rating</mfDefaultSorter>
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let book of mf.data">
+          <td>{{mf.data.indexOf(book)+1}}</td>
+          <td>{{book.author}}</td>
+          <td><a (click)="getFullBook(book)">{{book.title}}</a></td>
+          <td>
+            <input type="checkbox" name="status" id="checkbox1" class="ios-toggle" [checked]=book.status [(ngModel)] = "status"/>
+            <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+          </td>
+          <td>{{book.rating}}</td>
+          <td>
+            <div class="book-actions">
+              <button *ngIf="authService.loggedIn()" (click)="deleteBook(book)" type="button" class="btn btn-danger">Remove</button>
+              <button *ngIf="authService.loggedIn()" [routerLink]="['book/edit', book._id]" type="button" class="btn btn-primary">Edit</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <app-book [book]="fullBook"></app-book>
+  </div>
+
+
+
+
+
+

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
+import {DataTableModule} from "angular2-datatable";
 
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
@@ -11,12 +12,18 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { DataFilterPipe } from './category.pipe';
+import { OrderByPipe } from './order.pipe';
+
+
 
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
 import { GuardService } from "./guards/guard.service";
 import { BookService } from "./services/book.service";
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
+
+import { PagerService } from "./services/pager.service";
 
 
 const routes: Routes = [
@@ -45,19 +52,25 @@ const routes: Routes = [
     EditBookComponent,
     RegisterComponent,
     LoginComponent,
-    BookListItemComponent
+    BookListItemComponent,
+    DataFilterPipe,
+    OrderByPipe
+
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    DataTableModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
     ValidateService,
     AuthService,
     GuardService,
-    BookService
+    BookService,
+    PagerService
   ],
   bootstrap: [AppComponent]
 })
