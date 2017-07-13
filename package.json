@@ -22,6 +22,7 @@
     "@angular/router": "^4.0.0",
     "angular2-datatable": "^0.6.0",
     "angular2-datatable-pagination": "0.0.3",
+    "angular2-flash-messages": "^1.0.8",
     "angular2-jwt": "^0.2.3",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",

@@ -112,6 +112,7 @@ exports.addBook = function (req, res) {
     const author = req.body.author;
     const description = req.body.description;
     const status = req.body.status;
+    const displayStatus = req.body.displayStatus;
     const rating = req.body.rating;
 
     if (!title) {
@@ -143,6 +144,7 @@ exports.addBook = function (req, res) {
         author,
         description,
         status,
+        displayStatus,
         rating
     });
 
@@ -185,8 +187,9 @@ exports.editBook = function (req, res) {
         updBook.description = book.description;
     }
 
-    if(book.status){
+    if(book.displayStatus){
         updBook.status = book.status;
+        updBook.displayStatus = book.displayStatus;
     }
 
     if(book.rating){

@@ -1,0 +1,73 @@
+.book-wrapper{
+  display: flex;
+  justify-content: center;
+  .book-image{
+    margin-right: 100px;
+    img{
+      //width: 50%;
+      height: 300px;
+    }
+  }
+
+}
+
+.about-book{
+  width: 300px;
+}
+
+$unchecked-star: '\2606';
+$unchecked-color: #888;
+$checked-star: '\2605';
+$checked-color: #e52;
+
+.star-cb-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  display: flex;
+  justify-content: flex-end;
+  * {
+    font-size: 1rem;
+  }
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  & > input {
+    display: none;
+    & + label {
+      /* only enough room for the star */
+      display: inline-block;
+      overflow: hidden;
+      text-indent: 9999px;
+      //width: 1em;
+      white-space: nowrap;
+      cursor: pointer;
+      margin-right: 10px;
+      width:20px;
+      &:before {
+        display: inline-block;
+        text-indent: -9999px;
+        content: $unchecked-star;
+        color: $unchecked-color;
+        font-size: 20px;
+      }
+    }
+
+    &:checked ~ label:before{
+      content: $checked-star;
+      color: #e52;
+      text-shadow: 0 0 1px #333;
+    }
+  }
+
+  /* the hidden clearer */
+  & > .star-cb-clear + label {
+    text-indent: -9999px;
+    width: .5em;
+    margin-left: -.5em;
+  }
+  & > .star-cb-clear + label:before {
+    width: .5em;
+  }
+}
+
+

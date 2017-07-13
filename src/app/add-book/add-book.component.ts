@@ -1,49 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { BookService } from "../services/book.service";
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {BookService} from '../services/book.service';
+import {Router} from '@angular/router';
 
-
+interface Book {
+  title: string;
+  author: string;
+  description: string;
+  status: boolean;
+  displayStatus: string;
+  rating: number;
+}
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['add-book.component.scss']
 })
+
+
+
 export class AddBookComponent implements OnInit {
 
-  title: string;
-  author: string;
-  description : string;
-  status: boolean;
-  rating: number;
+  public book: Book = {
+    title: '',
+    author: '',
+    description: '',
+    status: false,
+    displayStatus: '',
+    rating: 0
+  };
 
-  constructor(private bookService: BookService, private router: Router) { }
+  constructor(private bookService: BookService, private router: Router) {
+  }
 
   ngOnInit() {
 
   }
 
-  addBook(){
-    const book={
-    title: this.title,
-    author: this.author,
-    description : this.description,
-    status: this.status,
-    rating: this.rating
-  }
-
-    this.bookService.createBook(book).subscribe(data=>{
-      if(data.success){
-        //this.authService.userData(data.token, data.user);
+  addBook() {
+    const newBook = this.book;
+    newBook.displayStatus = this.book.status ? 'active' : 'inactive';
+    this.bookService.createBook(newBook).subscribe(data => {
+      if (data.success) {
         this.router.navigate(['/book']);
         console.log('book created');
-      }else{
+      } else {
         console.log('error book creation');
-        //this.router.navigate(['/register']);
       }
     });
   }
-
 
 
 }

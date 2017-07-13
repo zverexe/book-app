@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { Router } from "@angular/router";
 
@@ -7,18 +7,19 @@ import { Router } from "@angular/router";
   templateUrl: './app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements AfterViewInit{
   title = 'app works!';
   userEmail: any;
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  ngAfterViewInit(){
     this.userEmail = this.authService.getUser().name;
     console.log(this.userEmail);
   }
 
   logOut(){
     this.authService.logOut();
+    this.userEmail=null;
     this.router.navigate(['/']);
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
+import { FlashMessagesService } from "angular2-flash-messages";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent{
   password: string;
 
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,
+              private flashMessage: FlashMessagesService) { }
 
   onLogin(){
     const user ={
@@ -24,13 +26,13 @@ export class LoginComponent{
     this.authService.loginUser(user).subscribe((data)=>{
       if(data.success){
         this.authService.userData(data.token, data.user);
+        this.flashMessage.show('You are logged in.', {cssClass: 'alert-success'});
         this.router.navigate(['/']);
       }else{
         console.log('user didn\'t logged in');
+        this.flashMessage.show('You are not logged in. Wrong email or password.', {cssClass: 'alert-danger', timeout: 2000})
         this.router.navigate(['/login']);
       }
     });
-
   }
-
 }

@@ -1,7 +1,28 @@
 <div class="col-sm-12">
-  <div class="book-wrapper">
-    <h4>{{ book?.title }}</h4>
-    <p>{{ book?.author }}</p>
-    <p>{{ book?.description }}</p>
+  <div class="book-wrapper" *ngIf="book">
+    <div class="book-image">
+      <img src="../../assets/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" />
+    </div>
+    <div class="about-book">
+      <h2>{{ book?.title }}</h2>
+      <div class="book-rating">
+        <fieldset>
+          <span class="star-cb-group">
+           <input type="radio" id="rating-5" [checked]="book.rating >= 5" /><label for="rating-5">4</label>
+            <input type="radio" id="rating-4" [checked]="book.rating >= 4" /><label for="rating-4">4</label>
+            <input type="radio" id="rating-3" [checked]="book.rating >= 3" /><label for="rating-3">4</label>
+            <input type="radio" id="rating-2" [checked]="book.rating >= 2" /><label for="rating-2">4</label>
+            <input type="radio" id="rating-1" [checked]="book.rating >= 1" /><label for="rating-1">4</label>
+
+          </span>
+
+        </fieldset>
+      </div>
+      <div class="book-post-date">
+        {{ book?.time | date }}
+      </div>
+      <p>{{ book?.author }}</p>
+      <p>{{ book?.description }}</p>
+    </div>
   </div>
 </div>

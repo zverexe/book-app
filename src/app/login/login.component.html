@@ -8,14 +8,26 @@
       <label for="">Email address</label>
       <input type="email" class="form-control" [(ngModel)] = "email"
              name="email" placeholder="Email" required #e="ngModel">
+      <div class="alert alert-danger"
+           *ngIf="e.invalid && e.touched">
+        Email is required
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group"
+         [ngClass]="{
+         'has-error': p.invalid && p.touched,
+         'has-success': p.valid && p.touched}">
       <label for="">Password</label>
-      <input type="password" class="form-control" [(ngModel)] = "password" name="password" placeholder="Password">
+      <input type="password" class="form-control" [(ngModel)] = "password" name="password" required
+             placeholder="Password" #p="ngModel">
+      <div class="alert alert-danger"
+           *ngIf="p.invalid && p.touched">
+        Password is required
+      </div>
     </div>
     <div *ngIf="e.invalid && e.touched">Please fill in this field</div>
     <div *ngIf="invalidEmail" >Please type valid email.</div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" [disabled]="f.invalid">Submit</button>
   </form>
 
 </div>

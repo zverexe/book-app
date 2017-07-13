@@ -7,7 +7,7 @@
          'has-success': t.valid && t.touched}">
         <label for="">Title</label>
         <input type="text" class="form-control" [(ngModel)] = "book.title"
-               name="title" placeholder="Title" required #t="ngModel" [value]=book.title>
+               name="title" placeholder="Title" required #t="ngModel" [value]=book?.title>
 
       </div>
       <div class="form-group"
@@ -16,7 +16,7 @@
          'has-success': a.valid && a.touched}">
         <label for="">Author</label>
         <input type="text" class="form-control" [(ngModel)] = "book.author"
-               name="author" placeholder="author" required #a="ngModel" [value]=book.author>
+               name="author" placeholder="author" required #a="ngModel" [value]=book?.author>
       </div>
       <div class="form-group description"
            [ngClass]="{
@@ -31,17 +31,28 @@
         <div>
           <p>Status</p>
         </div>
-        <input type="checkbox" name="status" [(ngModel)] = "book.status" [checked]=book.status>
-
+        <input type="checkbox" name="status" id="checkbox"
+               class="status-checkbox ios-toggle"
+               [checked]="isActiveStatus(book)"
+               (change)="changeStatus(book)"/>
+        <label for="checkbox" class="checkbox-label" data-off="off" data-on="on"></label>
       </div>
-
-      <div class="form-group"
-           [ngClass]="{
-         'has-error': r.invalid && r.touched,
-         'has-success': r.valid && r.touched}">
+      <div class="form-group">
         <label for="">Rating</label>
-        <input type="text" class="form-control" [(ngModel)] = "book.rating"
-               name="rating" placeholder="Rating" required #r="ngModel" [value]=book.rating>
+        <fieldset>
+          <span class="star-cb-group">
+            <input type="radio" id="rating-5" [checked]="book.rating >= 5"
+                   (click)="rating(5)"/><label for="rating-5">4</label>
+            <input type="radio" id="rating-4" [checked]="book.rating >= 4"
+                   (click)="rating(4)"/><label for="rating-4">4</label>
+            <input type="radio" id="rating-3" [checked]="book.rating >= 3"
+                   (click)="rating(3)"/><label for="rating-3">4</label>
+            <input type="radio" id="rating-2" [checked]="book.rating >= 2"
+                   (click)="rating(2)"/><label for="rating-2">4</label>
+            <input type="radio" id="rating-1" [checked]="book.rating >= 1"
+                   (click)="rating(1)"/><label for="rating-1">4</label>
+          </span>
+        </fieldset>
       </div>
       <button type="submit" class="btn btn-default" [disabled]="f.invalid">Submit</button>
       <button type="button" class="btn btn-default" (click)="closeEdit(book)">Cancel</button>

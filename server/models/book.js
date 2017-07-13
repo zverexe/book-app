@@ -2,7 +2,7 @@ const express = require('express'),
     mongoose = require('mongoose'),
     database = require('../database'),
     authenticate = require('../authenticate');
-    
+
 
 //User Schema
 const Schema = mongoose.Schema;
@@ -19,8 +19,12 @@ const BookSchema = new Schema({
         type: String,
         required: true
     },
-    status:{
+    status: {
         type: Boolean
+    },
+    displayStatus:{
+        type: String,
+        required: true
     },
     rating:{
         type: Number,

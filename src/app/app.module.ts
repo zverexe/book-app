@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
-import {DataTableModule} from "angular2-datatable";
+import { DataTableModule } from "angular2-datatable";
+import { FlashMessagesModule } from "angular2-flash-messages";
 
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
@@ -27,7 +28,7 @@ import { PagerService } from "./services/pager.service";
 
 
 const routes: Routes = [
-  {path: '', component: BookListComponent},
+  {path: '', component: BookListComponent, pathMatch: 'full'},
   {path: 'auth',
     children:[
       {path: '', component: LoginComponent},
@@ -63,7 +64,8 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     DataTableModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FlashMessagesModule
   ],
   providers: [
     ValidateService,

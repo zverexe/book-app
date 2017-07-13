@@ -6,43 +6,77 @@
          'has-error': t.invalid && t.touched,
          'has-success': t.valid && t.touched}">
         <label for="">Title</label>
-        <input type="text" class="form-control" [(ngModel)] = "title"
+        <input type="text" class="form-control" [(ngModel)] = "book.title"
                name="title" placeholder="Title" required #t="ngModel">
+        <div class="alert alert-danger"
+             *ngIf="t.invalid && t.touched">
+          Title is required
+        </div>
       </div>
       <div class="form-group"
            [ngClass]="{
          'has-error': a.invalid && a.touched,
          'has-success': a.valid && a.touched}">
         <label for="">Author</label>
-        <input type="text" class="form-control" [(ngModel)] = "author"
+        <input type="text" class="form-control" [(ngModel)] = "book.author"
                name="author" placeholder="author" required #a="ngModel">
+        <div class="alert alert-danger"
+             *ngIf="a.invalid && a.touched">
+          Author is required
+        </div>
       </div>
       <div class="form-group description"
            [ngClass]="{
          'has-error': d.invalid && d.touched,
          'has-success': d.valid && d.touched}">
         <label for="">Description</label>
-        <textarea class="form-control" type="textarea" placeholder="Message" maxlength="140" rows="7" [(ngModel)] = "description"
+        <textarea class="form-control" type="textarea" placeholder="Message" rows="10" [(ngModel)] = "book.description"
                   name="description" placeholder="Description" required #d="ngModel">
         </textarea>
+        <div class="alert alert-danger"
+             *ngIf="d.invalid && d.touched">
+          Description is required
+        </div>
       </div>
       <div class="form-group checkbox">
-          <div>
-            <p>Status</p>
-          </div>
-          <input type="checkbox" name="status" id="checkbox1" class="ios-toggle"[(ngModel)] = "status"/>
-          <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+        <div>
+          <p>Status</p>
+        </div>
+        <input type="checkbox" name="status" id="checkbox1" class="ios-toggle" [(ngModel)] = "book.status"/>
+        <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
       </div>
 
-      <div class="form-group"
+      <div class="form-group">
+        <label for="">Rating</label>
+        <fieldset>
+          <span class="star-cb-group">
+            <input type="radio" id="rating-5" name="rating" value="5" [(ngModel)] = "book.rating" #r="ngModel"/><label for="rating-5">5</label>
+            <input type="radio" id="rating-4" name="rating" value="4" [(ngModel)] = "book.rating" #r="ngModel"/><label for="rating-4">4</label>
+            <input type="radio" id="rating-3" name="rating" value="3" [(ngModel)] = "book.rating" #r="ngModel"/><label for="rating-3">3</label>
+            <input type="radio" id="rating-2" name="rating" value="2" [(ngModel)] = "book.rating" #r="ngModel"/><label for="rating-2">2</label>
+            <input type="radio" id="rating-1" name="rating" value="1" [(ngModel)] = "book.rating" #r="ngModel"/><label for="rating-1">1</label>
+          </span>
+          <div class="alert alert-danger"
+               *ngIf="r.invalid">
+            Rating is required
+          </div>
+        </fieldset>
+
+      </div>
+
+      <!--<div class="form-group"
            [ngClass]="{
          'has-error': r.invalid && r.touched,
          'has-success': r.valid && r.touched}">
         <label for="">Rating</label>
-        <input type="text" class="form-control" [(ngModel)] = "rating"
-               name="author" placeholder="author" required #r="ngModel">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+        <input type="text" class="form-control" [(ngModel)] = "book.rating"
+               name="rating" placeholder="rating" required #r="ngModel">
+        <div class="alert alert-danger"
+             *ngIf="r.invalid && r.touched">
+          Rating is required
+        </div>
+      </div>-->
+      <button type="submit" class="btn btn-default" [disabled]="f.invalid">Submit</button>
     </form>
   </div>
 </div>
