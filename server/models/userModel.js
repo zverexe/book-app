@@ -26,14 +26,13 @@ UserSchema.pre('save', function (next) {
         if (err){ return next(err)};
     bcrypt.hash(user.password, salt, (err, hash) => {
         if (err){ return next(err)};
-    user.password = hash;
-    next();
-});
-});
+            user.password = hash;
+            next();
+        });
+    });
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
-
 
 module.exports.getUserId = function(id, callback){
     User.findById(id, callback);
@@ -49,6 +48,6 @@ module.exports.getUserByUsername = function(email, callback){
 module.exports.comparePassword = function(typedPassword, hash, callback){
     bcrypt.compare(typedPassword, hash, (err, isMatch)=>{
         if(err) throw err;
-    callback(null, isMatch);
-});
+        callback(null, isMatch);
+    });
 };

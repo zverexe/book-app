@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.form-wrapper {
+    display: flex !important;
+    justify-content: center;
+}
+.auth-form{
+    width: 300px;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #bfbfbf;
+}

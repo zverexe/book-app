@@ -1,23 +1,37 @@
 <div class="col-sm-12">
-  <form class="login-form" (ngSubmit)="addUser(f); f.reset();" #f="ngForm">
-    <div class="form-group"
-         [ngClass]="{
+  <h3 class="text-center">Create new account here:</h3>
+  <div class="form-wrapper">
+    <form class="auth-form" (ngSubmit)="addUser(f); f.reset();" #f="ngForm">
+      <div class="form-group"
+           [ngClass]="{
          'has-error': e.invalid && e.touched,
          'has-success': e.valid && e.touched}">
 
-      <label for="">Email address</label>
-      <input type="email" class="form-control" [(ngModel)] = "email"
-             name="email" placeholder="Email" required #e="ngModel">
-    </div>
-    <div class="form-group">
-      <label for="">Password</label>
-      <input type="password" class="form-control" [(ngModel)] = "password" name="password" placeholder="Password">
-    </div>
-    <div *ngIf="e.invalid && e.touched">Please fill in this field</div>
-    <div *ngIf="invalidEmail" >Please type valid email.</div>
-    <div *ngIf="registered" >You are registered.</div>
+        <label for="">Your email address</label>
+        <input type="email" class="form-control" [(ngModel)] = "email"
+               name="email" placeholder="Email" required #e="ngModel">
+        <div class="alert alert-danger"
+             *ngIf="e.invalid && e.touched">
+          Email is required
+        </div>
+      </div>
+      <div class="form-group"
+           [ngClass]="{
+         'has-error': p.invalid && p.touched,
+         'has-success': p.valid && p.touched}">
 
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+        <label for="">Your email address</label>
+        <input type="password" class="form-control" [(ngModel)] = "password"
+               name="password" placeholder="Password" required #p="ngModel">
+        <div class="alert alert-danger"
+             *ngIf="p.invalid && p.touched">
+          Password is required
+        </div>
+      </div>
 
+      <div *ngIf="invalidEmail" >Please type valid email.</div>
+      <div *ngIf="registered" >You are registered.</div>
+      <button type="submit" class="btn btn-default" [disabled]="f.invalid">Create account</button>
+    </form>
+  </div>
 </div>

@@ -13,15 +13,13 @@ export class LoginComponent{
   email: string;
   password: string;
 
-
   constructor(private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService) { }
-
   onLogin(){
     const user ={
       email: this.email,
       password: this.password
-    }
+    };
 
     this.authService.loginUser(user).subscribe((data)=>{
       if(data.success){

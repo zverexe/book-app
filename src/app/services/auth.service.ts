@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
-import {Observable} from 'rxjs/Observable';
 
 import { config } from '../localConfig';
 
@@ -53,12 +52,5 @@ export class AuthService {
   loggedIn(){
     return tokenNotExpired("id_token");
   }
-
-  getUser(){
-    this.username = JSON.parse(localStorage.getItem("user"));
-    console.log(this.username);
-    return this.username;
-  }
-
 
 }

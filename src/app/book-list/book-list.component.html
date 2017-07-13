@@ -20,7 +20,7 @@
         <th>
           <mfDefaultSorter by="rating">Rating</mfDefaultSorter>
         </th>
-        <th>
+        <th *ngIf="authService.loggedIn()">
           Actions
         </th>
       </tr>
@@ -31,11 +31,11 @@
         <td>{{book.author}}</td>
         <td><a class="book-title" (click)="getFullBook(book)">{{book.title}}</a></td>
         <td>
-          <div class="checkbox" *ngIf="authService.loggedIn()">
+          <div class="checkbox">
           <input type="checkbox" name="status" id="{{'checkbox'+mf.data.indexOf(book)}}"
                  class="status-checkbox ios-toggle"
                  [checked]="isActiveStatus(book)"
-                 (change)="changeStatus(book)"/>
+                 (change)="changeStatus(book)" [disabled] ="!authService.loggedIn()"/>
           <label for="{{'checkbox'+mf.data.indexOf(book)}}" class="checkbox-label" data-off="off" data-on="on"></label>
           </div>
         </td>
@@ -50,12 +50,12 @@
           </span>
           </fieldset>
         </td>
-        <td>
+        <td *ngIf="authService.loggedIn()">
           <div class="book-actions">
-            <button *ngIf="authService.loggedIn()" (click)="deleteBook(book)" type="button" class="btn btn-danger">
+            <button (click)="deleteBook(book)" type="button" class="btn btn-danger">
               Remove
             </button>
-            <button *ngIf="authService.loggedIn()" (click)="editBook(book)" type="button"
+            <button (click)="editBook(book)" type="button"
                     class="btn btn-primary">Edit
             </button>
           </div>

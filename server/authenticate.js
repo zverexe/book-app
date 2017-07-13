@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const User = require('./user');
+const User = require('./models/userModel');
 const Book = require('./models/bookModel');
 const database = require('./database');
 
@@ -56,8 +56,10 @@ exports.register = function (req, res, next) {
         const userInfo = setUserInfo(user);
         res.json({
             success: true,
-            token: `JWT ${generateToken(userInfo)}`,
-            user: userInfo
+            token: `JWT ${generateToken(user)}`,
+            user: {
+                name: user.email
+            }
          });
 
         });

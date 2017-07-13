@@ -13,7 +13,7 @@ export class AppComponent implements AfterViewChecked{
   constructor(private authService: AuthService, private router: Router) { }
 
   ngAfterViewChecked(){
-    this.userEmail = this.authService.getUser().name;
+    this.getUser();
   }
 
   logOut(){
@@ -22,4 +22,10 @@ export class AppComponent implements AfterViewChecked{
     this.router.navigate(['/']);
   }
 
+  getUser(){
+    if(this.authService.loggedIn()) {
+      this.userEmail = JSON.parse(localStorage.getItem("user")).name;
+      return this.userEmail;
+    }
+  }
 }

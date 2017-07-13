@@ -2,7 +2,7 @@ const express = require('express');
 const authenticate = require('../authenticate');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const User = require('../user');
+const User = require('../models/userModel');
 const book = require('../book');
 const database = require('../database');
 
