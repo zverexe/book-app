@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 .form-wrapper {
-    display: flex !important;
+    display: flex;
     justify-content: center;
 }
 .auth-form{

@@ -14,9 +14,6 @@ import { EditBookComponent } from './edit-book/edit-book.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DataFilterPipe } from './category.pipe';
-import { OrderByPipe } from './order.pipe';
-
-
 
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
@@ -24,7 +21,7 @@ import { GuardService } from "./guards/guard.service";
 import { BookService } from "./services/book.service";
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
 
-import { PagerService } from "./services/pager.service";
+
 
 
 const routes: Routes = [
@@ -54,10 +51,7 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     BookListItemComponent,
-    DataFilterPipe,
-    OrderByPipe
-
-
+    DataFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -71,8 +65,7 @@ const routes: Routes = [
     ValidateService,
     AuthService,
     GuardService,
-    BookService,
-    PagerService
+    BookService
   ],
   bootstrap: [AppComponent]
 })
