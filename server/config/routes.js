@@ -1,11 +1,10 @@
-
 const express = require('express');
 const authenticate = require('../authenticate');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../user');
+const book = require('../book');
 const database = require('../database');
-
 
 const passportService = require('./passport');
 
@@ -40,19 +39,19 @@ module.exports = function (app) {
     apiRoutes.use('/book', bookRoutes);
 
     // Book list
-    bookRoutes.get('/all', authenticate.getBookList);
-    
+    bookRoutes.get('/all', book.getBookList);
+
     // Add book
-    bookRoutes.post('/add', requireAuth, authenticate.addBook);
+    bookRoutes.post('/add', requireAuth, book.addBook);
 
     // Edit book
-    bookRoutes.put('/:id', requireAuth, authenticate.editBook);
+    bookRoutes.put('/:id', requireAuth, book.editBook);
 
     // Delete book
-    bookRoutes.delete('/:id', requireAuth, authenticate.deleteBook);
+    bookRoutes.delete('/:id', requireAuth, book.deleteBook);
 
     // Book page
-    bookRoutes.get('/:id', authenticate.viewBook);
+    bookRoutes.get('/:id', book.viewBook);
 
 
     app.use('/api', apiRoutes);

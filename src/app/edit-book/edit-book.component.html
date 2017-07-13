@@ -23,7 +23,7 @@
          'has-error': d.invalid && d.touched,
          'has-success': d.valid && d.touched}">
         <label for="">Description</label>
-        <textarea class="form-control" type="textarea" maxlength="140" rows="7" [(ngModel)] = "book.description"
+        <textarea class="form-control" type="textarea" rows="10" [(ngModel)] = "book.description"
                   name="description" placeholder="Description" required #d="ngModel" [value]=book.description>
         </textarea>
       </div>
