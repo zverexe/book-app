@@ -1,10 +1,7 @@
 const express = require('express');
-const router = express.Router();
-const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('./models/userModel');
-const Book = require('./models/bookModel');
-const database = require('./database');
+const database = require('./config/database');
 
 function generateToken(user) {
     console.log(database.secret);
@@ -29,6 +26,7 @@ exports.register = function (req, res, next) {
         return res.status(422).send({ error: 'You must enter a password.' });
     }
 
+    //Check if user exist in db
     User.findOne({ email }, (err, existingUser) => {
         if (err) { return next(err); }
 
@@ -71,6 +69,7 @@ exports.login = function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
+    //Check user email(login)
     User.getUserByUsername(email, (err, user)=>{
         if(err) throw err;
 
@@ -78,6 +77,7 @@ exports.login = function (req, res) {
             return res.json({success: false, msg: 'not found'});
         }
 
+        //Check user password
         User.comparePassword(password, user.password, (err, isMatch) => {
             if(err) throw err;
             if(isMatch){
@@ -93,13 +93,8 @@ exports.login = function (req, res) {
                 });
             }else{
                 return res.json({success: false, msg: 'not found'});
-            };
+            }
         });
     });
 };
 
-
-
-
-
-//module.exports = router;

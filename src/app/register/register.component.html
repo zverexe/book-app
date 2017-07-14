@@ -6,7 +6,6 @@
            [ngClass]="{
          'has-error': e.invalid && e.touched,
          'has-success': e.valid && e.touched}">
-
         <label for="">Your email address</label>
         <input type="email" class="form-control" [(ngModel)] = "email"
                name="email" placeholder="Email" required #e="ngModel">
@@ -19,7 +18,6 @@
            [ngClass]="{
          'has-error': p.invalid && p.touched,
          'has-success': p.valid && p.touched}">
-
         <label for="">Your email address</label>
         <input type="password" class="form-control" [(ngModel)] = "password"
                name="password" placeholder="Password" required #p="ngModel">
@@ -28,9 +26,7 @@
           Password is required
         </div>
       </div>
-
-      <div *ngIf="invalidEmail" >Please type valid email.</div>
-      <div *ngIf="registered" >You are registered.</div>
+      <div class="alert alert-danger" *ngIf="invalidEmail" >Please type valid email.</div>
       <button type="submit" class="btn btn-default" [disabled]="f.invalid">Create account</button>
     </form>
   </div>

@@ -1,8 +1,5 @@
 const express = require('express'),
-    mongoose = require('mongoose'),
-    database = require('../database'),
-    authenticate = require('../authenticate');
-
+    mongoose = require('mongoose')
 
 //User Schema
 const Schema = mongoose.Schema;

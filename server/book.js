@@ -4,9 +4,9 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('./models/userModel');
 const Book = require('./models/bookModel');
-const database = require('./database');
+const database = require('./config/database');
 
-// Add book
+// Add book to db
 exports.addBook = function (req, res) {
 
     const title = req.body.title;
@@ -16,6 +16,7 @@ exports.addBook = function (req, res) {
     const displayStatus = req.body.displayStatus;
     const rating = req.body.rating;
 
+    // Return error if no title provided
     if (!title) {
         return res.status(422).send({ error: 'You must add the title.' });
     }
@@ -51,7 +52,6 @@ exports.addBook = function (req, res) {
             res.json({success: true, book});
         };
     });
-    //res.json({success: true});
 };
 
 // Delete book
@@ -107,7 +107,7 @@ exports.editBook = function (req, res) {
     };
 };
 
-// Book page
+// Get single book
 exports.viewBook = function (req, res) {
     console.log(req.params);
 
@@ -121,7 +121,7 @@ exports.viewBook = function (req, res) {
 };
 
 
-// Book list
+// Get list of all books
 exports.getBookList = function (req, res) {
     Book.find({}, (err, books) => {
         if(err){ res.send(err)};

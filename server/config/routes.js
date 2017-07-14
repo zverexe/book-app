@@ -2,11 +2,8 @@ const express = require('express');
 const authenticate = require('../authenticate');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
 const book = require('../book');
-const database = require('../database');
-
-const passportService = require('./passport');
+const database = require('./database');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });

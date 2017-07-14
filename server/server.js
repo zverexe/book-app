@@ -4,7 +4,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    database = require('./database');
+    database = require('./config/database');
     routes = require('./config/routes');
 
 const app = express();
@@ -17,8 +17,6 @@ app.use(passport.session());
 require('./config/passport')(passport);
 const port = 3000;
 
-//app.use(router);
-
 //Database connection
 mongoose.connect(database.dbname);
 mongoose.connection.on('connected', () => {
@@ -29,9 +27,11 @@ app.get('/', (req, res)=> {
     res.send(' you are here');
 });
 
+//Listen to the port
 app.listen(port, ()=>{
     console.log('Server started on port ' + port);
 });
+
 routes(app);
 
 

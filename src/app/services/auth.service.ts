@@ -10,10 +10,10 @@ import 'rxjs/add/operator/map';
 export class AuthService {
   authToken: any;
   user: any;
-  username: any;
 
   constructor(private http: Http) { }
 
+  //Register user in db
   registerUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
@@ -21,8 +21,8 @@ export class AuthService {
         .map((res)=>res.json());
   }
 
+  //Login user
   loginUser(user){
-    console.log(user);
     let headers = new Headers();
     headers.append('Content-Type','application/json');
 
@@ -30,6 +30,7 @@ export class AuthService {
         .map((res)=>res.json());
   }
 
+  //Add user token and email to localStorage
   userData(token, user){
     localStorage.setItem('id_token',token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -38,17 +39,20 @@ export class AuthService {
     this.user = user;
   }
 
+  //Logout user
   logOut(){
     this.authToken = null;
     this.user = null;
     localStorage.clear();
   }
 
+  //Load user token from localstorage
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;
   }
 
+  //Check if user logged in
   loggedIn(){
     return tokenNotExpired("id_token");
   }

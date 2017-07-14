@@ -27,8 +27,7 @@ export class LoginComponent{
         this.flashMessage.show('You are logged in.', {cssClass: 'alert-success'});
         this.router.navigate(['/']);
       }else{
-        console.log('user didn\'t logged in');
-        this.flashMessage.show('You are not logged in. Wrong email or password.', {cssClass: 'alert-danger', timeout: 2000})
+        this.flashMessage.show('You are not logged in. Wrong email or password.', {cssClass: 'alert-danger', timeout: 3000})
         this.router.navigate(['/login']);
       }
     });

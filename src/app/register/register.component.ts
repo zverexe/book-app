@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FlashMessagesService } from "angular2-flash-messages";
 import { ValidateService } from "../services/validate.service";
 import { AuthService } from "../services/auth.service";
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   templateUrl: './register.component.html',
   styleUrls: ['register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   email: string;
   password: string;
@@ -20,9 +20,7 @@ export class RegisterComponent implements OnInit {
               private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService) { }
 
-  ngOnInit() {
-  }
-
+  //Register user
   addUser(){
     const user={
       email: this.email,
@@ -35,7 +33,6 @@ export class RegisterComponent implements OnInit {
       this.invalidEmail = false;
     }
 
-    //Register user
     this.authService.registerUser(user).subscribe(data=>{
           if(data.success){
             this.authService.userData(data.token, data.user);

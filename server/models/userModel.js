@@ -1,6 +1,6 @@
 const express = require('express'),
     mongoose = require('mongoose'),
-    database = require('../database'),
+    database = require('../config/database'),
     authenticate = require('../authenticate'),
     bcrypt = require('bcryptjs');
 
@@ -34,6 +34,7 @@ UserSchema.pre('save', function (next) {
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
+//Get user id
 module.exports.getUserId = function(id, callback){
     User.findById(id, callback);
 };
@@ -46,7 +47,7 @@ module.exports.getUserByUsername = function(email, callback){
 
 //Check user password
 module.exports.comparePassword = function(typedPassword, hash, callback){
-    bcrypt.compare(typedPassword, hash, (err, isMatch)=>{
+    bcrypt.compare(typedPassword, hash, (err, isMatch) => {
         if(err) throw err;
         callback(null, isMatch);
     });

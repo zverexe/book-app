@@ -37,6 +37,7 @@ export class AddBookComponent implements OnInit {
 
   }
 
+  //Add book
   addBook() {
     const newBook = this.book;
     newBook.displayStatus = this.book.status ? 'active' : 'inactive';

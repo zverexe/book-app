@@ -1,6 +1,7 @@
 .book-wrapper{
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
   .book-image{
     margin-right: 100px;
     img{
@@ -8,7 +9,9 @@
       height: 300px;
     }
   }
-
+  h2{
+    margin: 0;
+  }
 }
 
 .about-book{

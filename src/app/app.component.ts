@@ -28,4 +28,6 @@ export class AppComponent implements AfterViewChecked{
       return this.userEmail;
     }
   }
+
+
 }

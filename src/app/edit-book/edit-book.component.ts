@@ -26,6 +26,7 @@ export class EditBookComponent implements OnInit {
     });
   }
 
+  //Give rating to the book
   rating(rating){
     setTimeout(() => {
       this.book.rating = rating;
@@ -34,6 +35,7 @@ export class EditBookComponent implements OnInit {
 
   }
 
+  //Edit book
   edit(book) {
     const id = this.activeRoute.snapshot.params['id'];
     if(this.changedRating){
@@ -48,8 +50,7 @@ export class EditBookComponent implements OnInit {
       displayStatus: book.displayStatus,
       rating: book.rating
     };
-    console.log(book);
-    //
+
     this.bookService.editBook(updbook).subscribe(data => {
       if (data.success) {
         console.log('book edited');
@@ -60,15 +61,18 @@ export class EditBookComponent implements OnInit {
     });
   }
 
+  //Close edit if nothing changed
   closeEdit(book) {
     Object.assign(this.book, this.oldBook);
     this.router.navigate(['/']);
   }
 
+  //Check book status
   isActiveStatus(book) {
     return book.displayStatus === 'active';
   }
 
+  //Change book status
   changeStatus(book) {
     book.status = !book.status;
     book.displayStatus = book.status ? 'active' : 'inactive';
