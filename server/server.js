@@ -15,7 +15,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./config/passport')(passport);
-const port = 3000;
+const port = process.env.PORT || 8080;
+
+//Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Database connection
 mongoose.connect(database.dbname);
@@ -23,6 +26,7 @@ mongoose.connection.on('connected', () => {
     console.log('connected to db');
 });
 
+//Index route
 app.get('/', (req, res)=> {
     res.send(' you are here');
 });
