@@ -7,7 +7,7 @@ To run poject on your computer you need to:
 2) cd book-app
 3) npm install and ng serve
 4) open new terminal, cd book-app/server
-5) npm install
-6) npm start and npm start
+5) npm install and npm start
+
 
 
