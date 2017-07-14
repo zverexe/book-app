@@ -5,9 +5,9 @@ You can store books you like using this app. In order to add, edit or delete boo
 To run poject on your computer you need to: 
 1) git clone https://github.com/zverexe/book-app.git
 2) cd book-app
-3) npm install
-4) cd server
+3) npm install and ng serve
+4) cd book-app/server
 5) npm install
-6) npm start
-7) cd .. and ng server
+6) npm start and npm start
+
 
