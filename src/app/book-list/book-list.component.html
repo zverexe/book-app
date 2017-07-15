@@ -3,6 +3,9 @@
     <div class="search-field">
       <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
     </div>
+    <div class="jumbotron" *ngIf="!books">
+      <h4>You do not have books yet</h4>
+    </div>
     <div class="panel panel-default">
       <table class="table table-striped" [mfData]="books | dataFilter : filterQuery" #mf="mfDataTable"
              [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">

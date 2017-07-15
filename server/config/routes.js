@@ -33,10 +33,10 @@ module.exports = function (app) {
     //= ========================
 
     // Set book routes as subgroup/middleware to apiRoutes
-    apiRoutes.use('/book', bookRoutes);
+    apiRoutes.use('/book', requireAuth, bookRoutes);
 
     // Book list
-    bookRoutes.get('/all', book.getBookList);
+    bookRoutes.get('/all', requireAuth, book.getBookList);
 
     // Add book
     bookRoutes.post('/add', requireAuth, book.addBook);
@@ -48,7 +48,7 @@ module.exports = function (app) {
     bookRoutes.delete('/:id', requireAuth, book.deleteBook);
 
     // Book page
-    bookRoutes.get('/:id', book.viewBook);
+    bookRoutes.get('/:id', requireAuth, book.viewBook);
 
 
     app.use('/api', apiRoutes);

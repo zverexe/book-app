@@ -51,13 +51,19 @@ export class BookService {
 
   //Get all books from db
   getAllBooks(user_id){
-    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id}})
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id}, headers})
         .map( res => res.json());
   }
 
   //Get one book from db
   getBook(id){
-    return this.http.get(`${config.API_HOST}/book/`+id)
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    return this.http.get(`${config.API_HOST}/book/`+id, {headers: headers})
         .map( res => res.json());
   }
 

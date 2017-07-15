@@ -31,11 +31,11 @@ const routes: Routes = [
     ]},
   {path: 'book',
     children:[
-      {path: '', component: BookListComponent},
-      {path: 'book-list', component: BookListComponent},
+      {path: '', component: BookListComponent, canActivate: [GuardService]},
+      {path: 'book-list', component: BookListComponent, canActivate: [GuardService]},
       {path: 'add', component: AddBookComponent, canActivate: [GuardService]},
       {path: 'edit/:id', component: EditBookComponent, canActivate: [GuardService]},
-      {path: ':book', component: BookComponent},
+      {path: ':book', component: BookComponent, canActivate: [GuardService]},
   ]},
 ]
 
