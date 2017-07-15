@@ -25,7 +25,7 @@ export class LoginComponent{
       if(data.success){
         this.authService.userData(data.token, data.user);
         this.flashMessage.show('You are logged in.', {cssClass: 'alert-success'});
-        this.router.navigate(['/']);
+        this.router.navigate(['/book/book-list']);
       }else{
         this.flashMessage.show('You are not logged in. Wrong email or password.', {cssClass: 'alert-danger', timeout: 3000})
         this.router.navigate(['/login']);

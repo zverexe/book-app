@@ -37,7 +37,7 @@ export class RegisterComponent {
           if(data.success){
             this.authService.userData(data.token, data.user);
             this.flashMessage.show('Account created.', {cssClass: 'alert-success'});
-            this.router.navigate(['/']);
+            this.router.navigate(['/book/book-list']);
             console.log('registered');
           }else{
             this.flashMessage.show('You are not registered. Wrong email or password.', {cssClass: 'alert-danger', timeout: 2000})

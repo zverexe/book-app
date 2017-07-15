@@ -21,11 +21,8 @@ import { GuardService } from "./guards/guard.service";
 import { BookService } from "./services/book.service";
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
 
-
-
-
 const routes: Routes = [
-  {path: '', component: BookListComponent, pathMatch: 'full'},
+  {path: '', component: LoginComponent},
   {path: 'auth',
     children:[
       {path: '', component: LoginComponent},
@@ -34,10 +31,11 @@ const routes: Routes = [
     ]},
   {path: 'book',
     children:[
-      {path: '', component: BookListComponent},
+      {path: '', component: BookListComponent, canActivate: [GuardService]},
+      {path: 'book-list', component: BookListComponent, canActivate: [GuardService]},
       {path: 'add', component: AddBookComponent, canActivate: [GuardService]},
       {path: 'edit/:id', component: EditBookComponent, canActivate: [GuardService]},
-      {path: ':book', component: BookComponent},
+      {path: ':book', component: BookComponent, canActivate: [GuardService]},
   ]},
 ]
 

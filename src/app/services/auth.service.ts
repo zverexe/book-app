@@ -37,6 +37,7 @@ export class AuthService {
 
     this.authToken = token;
     this.user = user;
+
   }
 
   //Logout user
@@ -55,6 +56,10 @@ export class AuthService {
   //Check if user logged in
   loggedIn(){
     return tokenNotExpired("id_token");
+  }
+
+  loadUserId(){
+    return JSON.parse(localStorage.getItem("user")).id;
   }
 
 }

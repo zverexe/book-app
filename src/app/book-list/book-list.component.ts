@@ -19,18 +19,21 @@ export class BookListComponent implements OnInit {
   public sortBy = 'title';
   public sortOrder = 'asc';
 
+  user_id: string;
+
   constructor(private bookService: BookService,
               private router: Router,
               private authService: AuthService) {
   }
 
   ngOnInit() {
-    this.getFreshListOfBooks();
+    this.user_id = this.authService.loadUserId();
+    this.getFreshListOfBooks(this.user_id);
   }
 
 
-  getFreshListOfBooks() {
-    this.bookService.getAllBooks().subscribe(data => {
+  getFreshListOfBooks(id) {
+    this.bookService.getAllBooks(id).subscribe(data => {
       if (data) {
         this.books = data;
         console.log(data);
@@ -48,7 +51,7 @@ export class BookListComponent implements OnInit {
         this.books.forEach(item => {
           if (item._id === book._id) {
             this.books.splice(item, 1);
-            this.getFreshListOfBooks();
+            this.getFreshListOfBooks(this.user_id);
           }
         });
       }

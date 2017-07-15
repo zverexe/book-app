@@ -15,6 +15,7 @@ exports.addBook = function (req, res) {
     const status = req.body.status;
     const displayStatus = req.body.displayStatus;
     const rating = req.body.rating;
+    const creator = req.body.creator
 
     // Return error if no title provided
     if (!title) {
@@ -42,7 +43,8 @@ exports.addBook = function (req, res) {
         description,
         status,
         displayStatus,
-        rating
+        rating,
+        creator
     });
 
     newBook.save((err, book) => {
@@ -97,7 +99,7 @@ exports.editBook = function (req, res) {
             "error": "Bad data"
         });
     }else{
-        Book.update({_id: req.params.id},updBook,{}, (err, book)=>{
+        Book.update({_id: req.params.id},updBook,{runValidators: true}, (err, book)=>{
             if(err){
                 res.send("not edited data");
             }else{
@@ -123,7 +125,7 @@ exports.viewBook = function (req, res) {
 
 // Get list of all books
 exports.getBookList = function (req, res) {
-    Book.find({}, (err, books) => {
+    Book.find({creator: req.query.id}, (err, books) => {
         if(err){ res.send(err)};
     //console.log(books);
     res.send(books);

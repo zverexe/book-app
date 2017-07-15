@@ -32,8 +32,11 @@ const BookSchema = new Schema({
     time: {
         type : Date,
         default: Date.now
+    },
+    creator:{
+      type: String,
+      required: true
     }
-
 });
 
 module.exports = mongoose.model('Book', BookSchema);

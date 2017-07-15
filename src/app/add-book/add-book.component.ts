@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from '../services/book.service';
 import {Router} from '@angular/router';
+import { AuthService } from "../services/auth.service";
 
 interface Book {
   title: string;
@@ -9,6 +10,7 @@ interface Book {
   status: boolean;
   displayStatus: string;
   rating: number;
+  creator: string;
 }
 
 @Component({
@@ -27,11 +29,12 @@ export class AddBookComponent implements OnInit {
     description: '',
     status: false,
     displayStatus: '',
-    rating: 0
+    rating: 0,
+    creator: ''
   };
 
-  constructor(private bookService: BookService, private router: Router) {
-  }
+  constructor(private bookService: BookService, private router: Router,
+              private authService: AuthService) {  }
 
   ngOnInit() {
 
@@ -40,7 +43,10 @@ export class AddBookComponent implements OnInit {
   //Add book
   addBook() {
     const newBook = this.book;
+
+    newBook.creator = this.authService.loadUserId();
     newBook.displayStatus = this.book.status ? 'active' : 'inactive';
+    console.log(newBook);
     this.bookService.createBook(newBook).subscribe(data => {
       if (data.success) {
         this.router.navigate(['/book']);
