@@ -99,7 +99,7 @@ exports.editBook = function (req, res) {
             "error": "Bad data"
         });
     }else{
-        Book.update({_id: req.params.id},updBook,{}, (err, book)=>{
+        Book.update({_id: req.params.id},updBook,{runValidators: true}, (err, book)=>{
             if(err){
                 res.send("not edited data");
             }else{

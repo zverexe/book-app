@@ -22,7 +22,7 @@ import { BookService } from "./services/book.service";
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent, pathMatch: 'full'},
+  {path: '', component: LoginComponent},
   {path: 'auth',
     children:[
       {path: '', component: LoginComponent},
