@@ -126,8 +126,7 @@ exports.viewBook = function (req, res) {
 // Get list of all books
 exports.getBookList = function (req, res) {
     Book.find({creator: req.query.id}, (err, books) => {
-        if(err){ res.send(err)};
-    //console.log(books);
-    res.send(books);
+        if(err) res.send(err);
+        res.send(books);
     });
 };
