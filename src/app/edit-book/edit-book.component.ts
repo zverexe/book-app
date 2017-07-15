@@ -54,7 +54,7 @@ export class EditBookComponent implements OnInit {
     this.bookService.editBook(updbook).subscribe(data => {
       if (data.success) {
         console.log('book edited');
-        this.router.navigate(['/']);
+        this.router.navigate(['/book/book-list']);
       } else {
         console.log('error book edit');
       }
@@ -64,7 +64,7 @@ export class EditBookComponent implements OnInit {
   //Close edit if nothing changed
   closeEdit(book) {
     Object.assign(this.book, this.oldBook);
-    this.router.navigate(['/']);
+    this.router.navigate(['/book/book-list']);
   }
 
   //Check book status

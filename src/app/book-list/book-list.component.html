@@ -1,46 +1,47 @@
 <div class="col-sm-12">
-  <div class="search-field">
-    <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
-  </div>
-  <div class="panel panel-default">
-    <table class="table table-striped" [mfData]="books | dataFilter : filterQuery" #mf="mfDataTable"
-           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>
-          <mfDefaultSorter by="author">Author</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="title">Title</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="status">Status</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="rating">Rating</mfDefaultSorter>
-        </th>
-        <th *ngIf="authService.loggedIn()">
-          Actions
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let book of mf.data">
-        <td>{{mf.data.indexOf(book)+1}}</td>
-        <td>{{book.author}}</td>
-        <td><a class="book-title" (click)="getFullBook(book)">{{book.title}}</a></td>
-        <td>
-          <div class="checkbox">
-          <input type="checkbox" name="status" id="{{'checkbox'+mf.data.indexOf(book)}}"
-                 class="status-checkbox ios-toggle"
-                 [checked]="isActiveStatus(book)"
-                 disabled/>
-          <label for="{{'checkbox'+mf.data.indexOf(book)}}" class="checkbox-label" data-off="off" data-on="on"></label>
-          </div>
-        </td>
-        <td>
-          <fieldset>
+  <div *ngIf="authService.loggedIn()" class="page-wrapper">
+    <div class="search-field">
+      <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
+    </div>
+    <div class="panel panel-default">
+      <table class="table table-striped" [mfData]="books | dataFilter : filterQuery" #mf="mfDataTable"
+             [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>
+            <mfDefaultSorter by="author">Author</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="title">Title</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="status">Status</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="rating">Rating</mfDefaultSorter>
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let book of mf.data">
+          <td>{{mf.data.indexOf(book)+1}}</td>
+          <td>{{book.author}}</td>
+          <td><a class="book-title" (click)="getFullBook(book)">{{book.title}}</a></td>
+          <td>
+            <div class="checkbox">
+              <input type="checkbox" name="status" id="{{'checkbox'+mf.data.indexOf(book)}}"
+                     class="status-checkbox ios-toggle"
+                     [checked]="isActiveStatus(book)"
+                     disabled/>
+              <label for="{{'checkbox'+mf.data.indexOf(book)}}" class="checkbox-label" data-off="off" data-on="on"></label>
+            </div>
+          </td>
+          <td>
+            <fieldset>
           <span class="star-cb-group">
             <input type="radio" id="rating-5" [checked]="book.rating >= 5" disabled/><label for="rating-5">5</label>
             <input type="radio" id="rating-4" [checked]="book.rating >= 4" disabled/><label for="rating-4">4</label>
@@ -48,30 +49,31 @@
             <input type="radio" id="rating-2" [checked]="book.rating >= 2" disabled/><label for="rating-2">2</label>
             <input type="radio" id="rating-1" [checked]="book.rating >= 1" disabled/><label for="rating-1">1</label>
           </span>
-          </fieldset>
-        </td>
-        <td *ngIf="authService.loggedIn()">
-          <div class="book-actions">
-            <button (click)="deleteBook(book)" type="button" class="btn btn-danger">
-              Remove
-            </button>
-            <button (click)="editBook(book)" type="button"
-                    class="btn btn-primary">Edit
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="5">
-          <mfBootstrapPaginator></mfBootstrapPaginator>
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+            </fieldset>
+          </td>
+          <td *ngIf="authService.loggedIn()">
+            <div class="book-actions">
+              <button (click)="deleteBook(book)" type="button" class="btn btn-danger">
+                Remove
+              </button>
+              <button (click)="editBook(book)" type="button"
+                      class="btn btn-primary">Edit
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <app-book [book]="fullBook"></app-book>
   </div>
-  <app-book [book]="fullBook"></app-book>
 </div>
 
 

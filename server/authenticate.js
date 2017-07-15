@@ -42,8 +42,7 @@ exports.register = function (req, res, next) {
     function setUserInfo(request) {
         const getUserInfo = {
             _id: request._id,
-            email: request.email,
-            password: request.password
+            email: request.email
         };
         return getUserInfo;
     };
@@ -56,7 +55,8 @@ exports.register = function (req, res, next) {
             success: true,
             token: `JWT ${generateToken(user)}`,
             user: {
-                name: user.email
+                name: user.email,
+                id: user._id
             }
          });
 
@@ -88,7 +88,8 @@ exports.login = function (req, res) {
                     success: true,
                     token: 'JWT ' + token,
                     user: {
-                        name: user.email
+                        name: user.email,
+                        id: user._id
                     }
                 });
             }else{

@@ -24,7 +24,7 @@ export class BookService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-
+    console.log(book);
     return this.http.post(`${config.API_HOST}/book/add`, book, {headers: headers})
         .map(res => res.json());
   }
@@ -50,8 +50,8 @@ export class BookService {
   }
 
   //Get all books from db
-  getAllBooks(){
-    return this.http.get(`${config.API_HOST}/book/all`)
+  getAllBooks(user_id){
+    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id}})
         .map( res => res.json());
   }
 
