@@ -1,6 +1,8 @@
 <div class="col-sm-12">
   <div class="book-wrapper" *ngIf="book">
-    <div class="book-image">
+      <a (click)="closeBook()"><i class="fa fa-times fa-2x close-btn" aria-hidden="true"></i></a>
+
+      <div class="book-image">
       <img src="../../assets/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" />
     </div>
     <div class="about-book">

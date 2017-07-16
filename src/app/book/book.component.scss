@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  position: relative;
   .book-image{
     margin-right: 100px;
     img{
@@ -11,6 +12,13 @@
   }
   h2{
     margin: 0;
+  }
+  .close-btn{
+    position: absolute;
+    right: 0;
+    top:0;
+    color: #e52;
+    cursor: pointer;
   }
 }
 
