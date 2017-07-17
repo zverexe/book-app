@@ -3,7 +3,7 @@
     <div class="search-field">
       <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
     </div>
-    <div class="jumbotron" *ngIf="!books">
+    <div class="jumbotron" *ngIf="books.length===0">
       <h4>You do not have books yet</h4>
     </div>
     <div class="panel panel-default">
