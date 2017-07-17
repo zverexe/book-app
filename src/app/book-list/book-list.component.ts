@@ -75,4 +75,8 @@ export class BookListComponent implements OnInit {
     });
   }
 
+  onCloseBook(){
+    this.fullBook=null;
+  }
+
 }

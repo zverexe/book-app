@@ -75,7 +75,7 @@
         </tfoot>
       </table>
     </div>
-    <app-book [book]="fullBook"></app-book>
+    <app-book [book]="fullBook" (close)="onCloseBook($event)"></app-book>
   </div>
 </div>
 
