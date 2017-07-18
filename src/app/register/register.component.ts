@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from "angular2-flash-messages";
 import { ValidateService } from "../services/validate.service";
 import { AuthService } from "../services/auth.service";
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   templateUrl: './register.component.html',
   styleUrls: ['register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   email: string;
   password: string;
@@ -19,6 +19,13 @@ export class RegisterComponent {
   constructor(private validateService: ValidateService,
               private authService: AuthService, private router: Router,
               private flashMessage: FlashMessagesService) { }
+
+   ngOnInit(){
+     if(this.authService.loggedIn()){
+       this.router.navigate(['/book/book-list']);
+     }
+   }
+
 
   //Register user
   addUser(){
