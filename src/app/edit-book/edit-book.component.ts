@@ -8,6 +8,7 @@ import {BookService} from '../services/book.service';
   templateUrl: './edit-book.component.html',
   styleUrls: ['edit-book.component.scss']
 })
+
 export class EditBookComponent implements OnInit {
 
   book: any = {};
