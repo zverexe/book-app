@@ -3,7 +3,7 @@
       <a (click)="closeBook()"><i class="fa fa-times fa-2x close-btn" aria-hidden="true"></i></a>
 
       <div class="book-image">
-      <img src="../../assets/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png" />
+      <cl-image [public-id]="book?.image" [cloud-name]="uploader.cloudName" width="300" height="200"></cl-image>
     </div>
     <div class="about-book">
       <h2>{{ book?.title }}</h2>

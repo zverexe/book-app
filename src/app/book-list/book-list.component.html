@@ -1,28 +1,27 @@
 <div class="col-sm-12">
   <div *ngIf="authService.loggedIn()" class="page-wrapper">
     <div class="search-field">
-      <input class="form-control" [(ngModel)]="filterQuery" placeholder="Search"/>
+      <input class="form-control" (keyup)="searchBook($event)"  placeholder="Search"/>
     </div>
     <div class="jumbotron" *ngIf="books.length===0">
       <h4>You do not have books yet</h4>
     </div>
     <div class="panel panel-default">
-      <table class="table table-striped" [mfData]="books | dataFilter : filterQuery" #mf="mfDataTable"
-             [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <table class="table table-striped">
         <thead>
         <tr>
           <th>#</th>
           <th>
-            <mfDefaultSorter by="author">Author</mfDefaultSorter>
+            Author
           </th>
           <th>
-            <mfDefaultSorter by="title">Title</mfDefaultSorter>
+            Title
           </th>
           <th>
-            <mfDefaultSorter by="status">Status</mfDefaultSorter>
+            <p (click)="onSortByStatus($event)">Status</p>
           </th>
           <th>
-            <mfDefaultSorter by="rating">Rating</mfDefaultSorter>
+            <p (click)="onSortByRating($event)">Rating</p>
           </th>
           <th>
             Actions
@@ -30,17 +29,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let book of mf.data">
-          <td>{{mf.data.indexOf(book)+1}}</td>
-          <td>{{book.author}}</td>
-          <td><a class="book-title" (click)="getFullBook(book)">{{book.title}}</a></td>
+        <tr *ngFor="let book of books; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ book.author }}</td>
+          <td><a class="book-title" (click)="getFullBook(book)">{{ book.title }}</a></td>
           <td>
             <div class="checkbox">
-              <input type="checkbox" name="status" id="{{'checkbox'+mf.data.indexOf(book)}}"
+              <input type="checkbox" name="status" id="{{'checkbox'+ i }}"
                      class="status-checkbox ios-toggle"
                      [checked]="isActiveStatus(book)"
                      disabled/>
-              <label for="{{'checkbox'+mf.data.indexOf(book)}}" class="checkbox-label" data-off="off" data-on="on"></label>
+              <label for="{{'checkbox'+ i }}" class="checkbox-label" data-off="off" data-on="on"></label>
             </div>
           </td>
           <td>

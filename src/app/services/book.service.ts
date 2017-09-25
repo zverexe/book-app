@@ -50,13 +50,29 @@ export class BookService {
   }
 
   //Get all books from db
-  getAllBooks(user_id){
+  getAllBooks(user_id, query=""){
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id}, headers})
+    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id, search_query: query}, headers})
         .map( res => res.json());
   }
+
+  sortByRating(user_id){
+      let headers = new Headers();
+      this.loadToken();
+      headers.append('Authorization', this.authToken);
+      return this.http.get(`${config.API_HOST}/book/sortRating`, {params: {id: user_id}, headers})
+          .map( res => res.json());
+  }
+
+    sortByStatus(user_id){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        return this.http.get(`${config.API_HOST}/book/sortStatus`, {params: {id: user_id}, headers})
+            .map( res => res.json());
+    }
 
   //Get one book from db
   getBook(id){

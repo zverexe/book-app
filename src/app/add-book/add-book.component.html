@@ -1,6 +1,6 @@
 <div class="col-sm-12">
   <div class="form-wrapper">
-    <form class="add-book-form" (ngSubmit)="addBook(f); f.reset();" #f="ngForm">
+    <form class="add-book-form" (ngSubmit)="addBook(f); f.reset();" #f="ngForm" enctype="multipart/form-data">
       <div class="form-group"
            [ngClass]="{
          'has-error': t.invalid && t.touched,
@@ -63,20 +63,17 @@
         </fieldset>
 
       </div>
+      <div class="form-group">
+        <div class="fa fa-spinner fa-spin" *ngIf="uploadProgress"></div>
+        <input type="file" ng2FileSelect [uploader]="uploader" accept="image/*;capture=camera">
 
-      <!--<div class="form-group"
-           [ngClass]="{
-         'has-error': r.invalid && r.touched,
-         'has-success': r.valid && r.touched}">
-        <label for="">Rating</label>
-        <input type="text" class="form-control" [(ngModel)] = "book.rating"
-               name="rating" placeholder="rating" required #r="ngModel">
-        <div class="alert alert-danger"
-             *ngIf="r.invalid && r.touched">
-          Rating is required
-        </div>
-      </div>-->
+        <a (click)="upload()">Upload</a>
+
+        <cl-image [public-id]="imageId" [cloud-name]="uploader.cloudName"  width="300" height="200"></cl-image>
+      </div>
       <button type="submit" class="btn btn-default" [disabled]="f.invalid">Submit</button>
     </form>
   </div>
 </div>
+
+

@@ -3,6 +3,7 @@ import {BookService} from '../services/book.service';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -19,7 +20,10 @@ export class BookListComponent implements OnInit {
   public sortBy = 'title';
   public sortOrder = 'asc';
 
+  public timeOut;
+  public values='';
   user_id: string;
+
 
   constructor(private bookService: BookService,
               private router: Router,
@@ -36,9 +40,46 @@ export class BookListComponent implements OnInit {
     this.bookService.getAllBooks(id).subscribe(data => {
       if (data) {
         this.books = data;
-        console.log(data);
+        console.log(this.books);
       }
     });
+  }
+
+  onSortByRating($event){
+      this.user_id = this.authService.loadUserId();
+      this.bookService.sortByRating(this.user_id).subscribe(data => {
+          if (data) {
+              this.books = data;
+              console.log(this.books);
+          }
+      });
+  }
+
+  onSortByStatus($event){
+        this.user_id = this.authService.loadUserId();
+        this.bookService.sortByStatus(this.user_id).subscribe(data => {
+            if (data) {
+                this.books = data;
+                console.log(this.books);
+            }
+        });
+    }
+
+  searchBook($event) {
+    this.user_id = this.authService.loadUserId();
+    this.timeOut = setTimeout(()=>{
+        clearTimeout(this.timeOut);
+        this.values = $event.target.value;
+        console.log(this.user_id);
+        this.bookService.getAllBooks(this.user_id, this.values).subscribe(data => {
+            if (data) {
+                this.books = data;
+            }
+        });
+
+        console.log(this.values);
+    }, 1500)
+
   }
 
   getFullBook(book) {

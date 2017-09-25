@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
 import { DataTableModule } from "angular2-datatable";
 import { FlashMessagesModule } from "angular2-flash-messages";
-
+import { CloudinaryModule, CloudinaryConfiguration, provideCloudinary } from '@cloudinary/angular';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookComponent } from './book/book.component';
@@ -14,6 +14,9 @@ import { EditBookComponent } from './edit-book/edit-book.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DataFilterPipe } from './category.pipe';
+
+import { Ng2CloudinaryModule } from 'ng2-cloudinary';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { ValidateService } from "./services/validate.service";
 import { AuthService } from "./services/auth.service";
@@ -49,7 +52,8 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     BookListItemComponent,
-    DataFilterPipe
+    DataFilterPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,10 @@ const routes: Routes = [
     HttpModule,
     DataTableModule,
     RouterModule.forRoot(routes),
-    FlashMessagesModule
+    FlashMessagesModule,
+      Ng2CloudinaryModule,
+      FileUploadModule
+
   ],
   providers: [
     ValidateService,

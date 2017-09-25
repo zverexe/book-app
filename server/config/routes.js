@@ -4,53 +4,62 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const book = require('../book');
 const database = require('./database');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 module.exports = function (app) {
-    // Initializing route groups
-    const apiRoutes = express.Router(),
+  // Initializing route groups
+  const apiRoutes = express.Router(),
         authRoutes = express.Router(),
         bookRoutes = express.Router();
 
 
-    //= ========================
-    // Auth Routes
-    //= ========================
+  //= ========================
+  // Auth Routes
+  //= ========================
 
-    // Set auth routes as subgroup/middleware to apiRoutes
-    apiRoutes.use('/auth', authRoutes);
+  // Set auth routes as subgroup/middleware to apiRoutes
+  apiRoutes.use('/auth', authRoutes);
 
-    // Registration route
-    authRoutes.post('/register', authenticate.register);
+  // Registration route
+  authRoutes.post('/register', authenticate.register);
 
-    // Login route
-    authRoutes.post('/login', authenticate.login);
+  // Login route
+  authRoutes.post('/login', authenticate.login);
 
-    //= ========================
-    // Book Routes
-    //= ========================
+  //= ========================
+  // Book Routes
+  //= ========================
 
-    // Set book routes as subgroup/middleware to apiRoutes
-    apiRoutes.use('/book', requireAuth, bookRoutes);
+  // Set book routes as subgroup/middleware to apiRoutes
 
-    // Book list
-    bookRoutes.get('/all', requireAuth, book.getBookList);
+  apiRoutes.use('/book', requireAuth, bookRoutes);
 
-    // Add book
-    bookRoutes.post('/add', requireAuth, book.addBook);
+  // Book list
 
-    // Edit book
-    bookRoutes.put('/:id', requireAuth, book.editBook);
+  bookRoutes.get('/all', requireAuth, book.getBookList);
 
-    // Delete book
-    bookRoutes.delete('/:id', requireAuth, book.deleteBook);
+  bookRoutes.get('/sortRating', requireAuth, book.getSortByRating);
 
-    // Book page
-    bookRoutes.get('/:id', requireAuth, book.viewBook);
+  bookRoutes.get('/sortStatus', requireAuth, book.getSortByStatus);
+
+  // Add book
+  bookRoutes.post('/add', requireAuth, book.addBook);
+
+  // Edit book
+  bookRoutes.put('/:id', requireAuth, book.editBook);
+
+  // Delete book
+  bookRoutes.delete('/:id', requireAuth, book.deleteBook);
+
+  // Book page
+  bookRoutes.get('/:id', requireAuth, book.viewBook);
 
 
-    app.use('/api', apiRoutes);
+  app.use('/api', apiRoutes);
 
 };

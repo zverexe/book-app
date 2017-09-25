@@ -1,6 +1,6 @@
 <div class="col-sm-12">
   <div class="form-wrapper">
-    <form class="edit-form" (ngSubmit)="edit(f.value);" #f="ngForm">
+    <form class="edit-form" (ngSubmit)="edit(f.value, file);" #f="ngForm">
       <div class="form-group"
            [ngClass]="{
          'has-error': t.invalid && t.touched,
@@ -53,6 +53,17 @@
                    (click)="rating(1)"/><label for="rating-1">4</label>
           </span>
         </fieldset>
+      </div>
+      <div class="form-group">
+        <div class="fa fa-spinner fa-spin" *ngIf="uploadProgress"></div>
+        <input type="file" (click)="resetImage()" ng2FileSelect [uploader]="uploader" accept="image/*; capture=camera" #file>
+
+        <a (click)="upload(file)">Upload</a>
+
+        <cl-image [public-id]="book.image" [cloud-name]="uploader.cloudName"  width="300" height="200"></cl-image>
+        <span [class.hidden]="!isPhotoLoading">{{photoLoadingHint}}</span>
+
+
       </div>
       <button type="submit" class="btn btn-default" [disabled]="f.invalid">Submit</button>
       <button type="button" class="btn btn-default" (click)="closeEdit(book)">Cancel</button>
