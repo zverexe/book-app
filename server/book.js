@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/userModel');
 const Book = require('./models/bookModel');
 const database = require('./config/database');
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+
+
 // Add book to db
 exports.addBook = function (req, res) {
 
   const title = req.body.title;
+  const titleLowerCase = req.body.titleLowerCase;
   const author = req.body.author;
   const description = req.body.description;
   const status = req.body.status;
@@ -19,8 +19,9 @@ exports.addBook = function (req, res) {
   const rating = req.body.rating;
   const creator = req.body.creator;
   const image = req.body.image;
+  const authorLowerCase = req.body.lowerCaseName;
 
-    // Return error if no title provided
+  // Return error if no title provided
   if (!title) {
     return res.status(422).send({ error: 'You must add the title.' });
   }
@@ -42,7 +43,9 @@ exports.addBook = function (req, res) {
 
   const newBook = new Book({
     title,
+    titleLowerCase,
     author,
+    authorLowerCase,
     description,
     status,
     displayStatus,
@@ -80,8 +83,16 @@ exports.editBook = function (req, res) {
     updBook.title = book.title;
   }
 
+  if (book.titleLowerCase) {
+    updBook.titleLowerCase = book.titleLowerCase;
+  }
+
   if (book.author) {
     updBook.author = book.author;
+  }
+
+  if (book.lowerCaseName) {
+    updBook.authorLowerCase = book.lowerCaseName;
   }
 
   if (book.description) {
@@ -135,15 +146,24 @@ exports.viewBook = function (req, res) {
 exports.getBookList = function (req, res) {
   if (req.query.search_query) {
     console.log(req.query.search_query);
-    Book.find({ /*creator: req.query.id,
-      title: req.query.search_query,
-      author: req.query.search_query*/
-      $or: [ { title: req.query.search_query },
-        { author: req.query.search_query },
-         ], creator: req.query.id }, (err, books) => {
+    Book.find({
+      /*creator: req.query.id,
+           title: req.query.search_query,
+           author: req.query.search_query*/
+      $or: [{title: req.query.search_query},
+        {author: req.query.search_query},
+      ], creator: req.query.id
+    }, (err, books) => {
       if (err) res.send(err);
       res.send(books);
     });
+  }
+  if (req.body.sortQuery === 'status') {
+    console.log(req.body.sortQuery);
+    Book.find({ creator: req.query.id }).sort({ status: -1              }).exec((err, books) => {
+        if (err) res.send(err);
+        res.send(books);
+      });
   } else {
     Book.find({ creator: req.query.id }, (err, books) => {
       if (err) res.send(err);
@@ -153,16 +173,24 @@ exports.getBookList = function (req, res) {
 };
 
 exports.getSortByRating = function (req, res) {
-    Book.find({ creator: req.query.id }).sort({ rating: 'desc' }).exec((err, books) => {
-      if (err) res.send(err);
-      res.send(books);
-    });
-};
-
-exports.getSortByStatus = function (req, res) {
-  Book.find({ creator: req.query.id }).sort({ status: -1 }).exec((err, books) => {
+  Book.find({ creator: req.query.id }).sort({ rating: 'desc' }).exec((err, books) => {
     if (err) res.send(err);
     res.send(books);
   });
+};
+
+exports.getSortByStatus = function (req, res) {
+
+};
+
+exports.getSortByText = function (req, res) {
+
+
+  Book.find({ creator: req.query.id }).sort({ authorLowerCase: 1 }).exec((err, books) => {
+    if (err) res.send(err);
+    res.send(books);
+  });
+
+
 };
 

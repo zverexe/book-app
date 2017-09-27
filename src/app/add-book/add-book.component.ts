@@ -10,7 +10,9 @@ import { CloudinaryOptions, CloudinaryUploader } from 'ng2-cloudinary';
 
 interface Book {
     title: string;
+    titleLowerCase: string;
     author: string;
+    lowerCaseName: string;
     description: string;
     status: boolean;
     displayStatus: string;
@@ -35,7 +37,9 @@ export class AddBookComponent implements OnInit {
 
     public book: Book = {
         title: '',
+        titleLowerCase: '',
         author: '',
+        lowerCaseName: '',
         description: '',
         status: false,
         displayStatus: '',
@@ -51,8 +55,6 @@ export class AddBookComponent implements OnInit {
     uploader: CloudinaryUploader = new CloudinaryUploader(
         new CloudinaryOptions({ cloudName: 'dwfmktoib', uploadPreset: 'umpwqofc' })
     );
-
-
 
     constructor(private bookService: BookService, private router: Router,
                 private authService: AuthService) {
@@ -75,12 +77,13 @@ export class AddBookComponent implements OnInit {
     ngOnInit(): void {
     }
 
-
     //Add book
     addBook() {
 
         const newBook = this.book;
         newBook.image = this.imageId;
+        newBook.lowerCaseName = this.book.author.toLowerCase().replace(/ /g,'');
+        newBook.titleLowerCase = this.book.title.toLowerCase().replace(/ /g,'');
 
         newBook.creator = this.authService.loadUserId();
         newBook.displayStatus = this.book.status ? 'active' : 'inactive';

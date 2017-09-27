@@ -8,9 +8,15 @@ const BookSchema = new Schema({
     type: String,
     required: true,
   },
+  titleLowerCase: {
+    type: String,
+  },
   author: {
     type: String,
     required: true,
+  },
+  authorLowerCase: {
+    type: String,
   },
   description: {
     type: String,

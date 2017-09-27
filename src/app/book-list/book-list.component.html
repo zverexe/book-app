@@ -12,16 +12,16 @@
         <tr>
           <th>#</th>
           <th>
-            Author
+            <p (click)="sort('authorLowerCase')">Author</p>
           </th>
           <th>
-            Title
+            <p (click)="onSortByTitle()">Title</p>
           </th>
           <th>
-            <p (click)="onSortByStatus($event)">Status</p>
+            <p (click)="sort('status')">Status</p>
           </th>
           <th>
-            <p (click)="onSortByRating($event)">Rating</p>
+            <p (click)="sort('rating')">Rating</p>
           </th>
           <th>
             Actions
