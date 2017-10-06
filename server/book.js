@@ -145,11 +145,7 @@ exports.viewBook = function (req, res) {
 // Get list of all books
 exports.getBookList = function (req, res) {
   if (req.query.search_query) {
-    console.log(req.query.search_query);
     Book.find({
-      /*creator: req.query.id,
-           title: req.query.search_query,
-           author: req.query.search_query*/
       $or: [{title: req.query.search_query},
         {author: req.query.search_query},
       ], creator: req.query.id
@@ -157,13 +153,6 @@ exports.getBookList = function (req, res) {
       if (err) res.send(err);
       res.send(books);
     });
-  }
-  if (req.body.sortQuery === 'status') {
-    console.log(req.body.sortQuery);
-    Book.find({ creator: req.query.id }).sort({ status: -1              }).exec((err, books) => {
-        if (err) res.send(err);
-        res.send(books);
-      });
   } else {
     Book.find({ creator: req.query.id }, (err, books) => {
       if (err) res.send(err);
@@ -172,25 +161,32 @@ exports.getBookList = function (req, res) {
   }
 };
 
-exports.getSortByRating = function (req, res) {
-  Book.find({ creator: req.query.id }).sort({ rating: 'desc' }).exec((err, books) => {
-    if (err) res.send(err);
-    res.send(books);
-  });
+
+exports.sortAll = function (req, res) {
+  if (req.query.sortQuery === 'status') {
+    Book.find({ creator: req.query.id }).sort({ status: -1 }).exec((err, books) => {
+      if (err) res.send(err);
+      res.send(books);
+    });
+  } else if (req.query.sortQuery === 'rating') {
+    Book.find({ creator: req.query.id }).sort({ rating: 'desc' }).exec((err, books) => {
+      if (err) res.send(err);
+      res.send(books);
+    });
+  } else if (req.query.sortQuery === 'authorLowerCase') {
+    Book.find({ creator: req.query.id }).sort({ authorLowerCase: 1 }).exec((err, books) => {
+      if (err) res.send(err);
+      res.send(books);
+    });
+  } else if (req.query.sortQuery === 'title') {
+    Book.find({ creator: req.query.id }).sort({ titleLowerCase: 1 }).exec((err, books) => {
+      if (err) res.send(err);
+      res.send(books);
+    });
+  } else {
+    Book.find({ creator: req.query.id }, (err, books) => {
+      if (err) res.send(err);
+      res.send(books);
+    });
+  }
 };
-
-exports.getSortByStatus = function (req, res) {
-
-};
-
-exports.getSortByText = function (req, res) {
-
-
-  Book.find({ creator: req.query.id }).sort({ authorLowerCase: 1 }).exec((err, books) => {
-    if (err) res.send(err);
-    res.send(books);
-  });
-
-
-};
-

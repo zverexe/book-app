@@ -43,11 +43,9 @@ module.exports = function (app) {
 
   bookRoutes.get('/all', requireAuth, book.getBookList);
 
-  bookRoutes.get('/sortRating', requireAuth, book.getSortByRating);
+  // Sort books
+  bookRoutes.get('/sort', requireAuth, book.sortAll);
 
-  bookRoutes.get('/sortStatus', requireAuth, book.getSortByStatus);
-
-  bookRoutes.get('/sortText', requireAuth, book.getSortByText);
   // Add book
   bookRoutes.post('/add', requireAuth, book.addBook);
 

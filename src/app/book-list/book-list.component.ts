@@ -46,42 +46,11 @@ export class BookListComponent implements OnInit {
     }
 
     sort(sortItem){
-        console.log(sortItem);
+        //console.log(sortItem);
         this.user_id = this.authService.loadUserId();
         this.bookService.sortTable(this.user_id, sortItem).subscribe(data => {
             if (data) {
                 this.books = data;
-                console.log(this.books);
-            }
-        });
-    }
-
-    onSortByText(){
-        this.user_id = this.authService.loadUserId();
-        this.bookService.sortByText(this.user_id).subscribe(data => {
-            if (data) {
-                this.books = data;
-                console.log(this.books);
-            }
-        });
-    }
-
-    onSortByRating($event){
-        this.user_id = this.authService.loadUserId();
-        this.bookService.sortByRating(this.user_id).subscribe(data => {
-            if (data) {
-                this.books = data;
-                console.log(this.books);
-            }
-        });
-    }
-
-    onSortByStatus($event){
-        this.user_id = this.authService.loadUserId();
-        this.bookService.sortByStatus(this.user_id).subscribe(data => {
-            if (data) {
-                this.books = data;
-                console.log(this.books);
             }
         });
     }

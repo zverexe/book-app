@@ -12,13 +12,13 @@ export class BookService {
   book: any;
   user: any;
 
-  //Load user token
+  // Load user token
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;
   }
 
-  //Create book
+  // Create book
   createBook(book){
     let headers = new Headers();
     this.loadToken();
@@ -29,7 +29,7 @@ export class BookService {
         .map(res => res.json());
   }
 
-  //Delete book
+  // Delete book
   removeBook(id){
     let headers = new Headers();
     this.loadToken();
@@ -38,7 +38,7 @@ export class BookService {
         .map(res => res.json());
   }
 
-  //Edit book
+  // Edit book
   editBook(book){
     let headers = new Headers();
     console.log(book);
@@ -49,51 +49,26 @@ export class BookService {
         .map(res => res.json());
   }
 
-  //Get all books from db
-  getAllBooks(user_id, sort="", query=""){
+  // Get all books from db
+  getAllBooks(user_id, query=""){
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id, sortQuery: sort, search_query: query}, headers})
+    return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id, search_query: query}, headers})
         .map( res => res.json());
   }
 
-  sortTable(user_id, sort="", query=""){
-    console.log(sort);
+  // Sort books in the table
+  sortTable(user_id, query){
       let headers = new Headers();
       this.loadToken();
+      console.log(query);
       headers.append('Authorization', this.authToken);
-      return this.http.get(`${config.API_HOST}/book/all`, {params: {id: user_id, sortQuery: sort, search_query: query}, headers})
+      return this.http.get(`${config.API_HOST}/book/sort`, {params: {id: user_id,  sortQuery: query}, headers})
           .map( res => res.json());
   }
 
-
-
-  sortByRating(user_id){
-      let headers = new Headers();
-      this.loadToken();
-      headers.append('Authorization', this.authToken);
-      return this.http.get(`${config.API_HOST}/book/sortRating`, {params: {id: user_id}, headers})
-          .map( res => res.json());
-  }
-
-    sortByStatus(user_id){
-        let headers = new Headers();
-        this.loadToken();
-        headers.append('Authorization', this.authToken);
-        return this.http.get(`${config.API_HOST}/book/sortStatus`, {params: {id: user_id}, headers})
-            .map( res => res.json());
-    }
-
-    sortByText(user_id){
-        let headers = new Headers();
-        this.loadToken();
-        headers.append('Authorization', this.authToken);
-        return this.http.get(`${config.API_HOST}/book/sortText`, {params: {id: user_id}, headers})
-            .map( res => res.json());
-    }
-
-  //Get one book from db
+  // Get one book from db
   getBook(id){
     let headers = new Headers();
     this.loadToken();
